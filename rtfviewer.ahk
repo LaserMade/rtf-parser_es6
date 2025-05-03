@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0
-#Include <WebView2\WebView2>  ; Assumes WebView2.ahk is in your Lib folder
+#Include <WebView2>  ; Assumes WebView2.ahk is in your Lib folder
+#Include <JSON>
 
 /*
  * RTF Viewer with ES Modules in WebView2
@@ -270,6 +271,7 @@ class RtfViewer {
         ; This is a placeholder - in a real app, you would include
         ; the ES module code from rtf-parser.js here
         return '
+        (
         // RTF Parser ES Module (simplified version)
         
         /**
@@ -352,7 +354,7 @@ class RtfViewer {
                 .replace(/\\{|\\}|\\\\|{|}|\\[a-z0-9]+[ ]?|-?[0-9]+/g, "")
                 .trim();
         }
-        '
+    )'
     }
     
     ; Event Handlers
@@ -382,7 +384,7 @@ class RtfViewer {
             this.hostObj.rtfContent := this.rtfContent
             
             ; Update the WebView content
-            this.wv.ExecuteScript("document.getElementById('rtf-content').value = `" StrReplace(this.rtfContent, "`", "\\`") "`;")
+            this.wv.ExecuteScript("document.getElementById('rtf-content').value = '" StrReplace(this.rtfContent, "``", "\\``") ";")
         }
     }
     
